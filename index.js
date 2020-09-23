@@ -1,12 +1,12 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const conexao = require('./bd/conexao');
-const Sequelize = require('sequelize');
-const Usuarios = require('./bd/Usuarios');
-const Musicas = require('./bd/Musicas');
-const Genero = require('./bd/Genero');
-const Artistas = require('./bd/Artistas');
-const formataData = require('./public/js/util');
+const express = require("express");
+const bodyParser = require("body-parser");
+const conexao = require("./bd/conexao");
+const Sequelize = require("sequelize");
+const Usuarios = require("./bd/Usuarios");
+const Musicas = require("./bd/Musicas");
+const Genero = require("./bd/Genero");
+const Artistas = require("./bd/Artistas");
+const formataData = require("./public/js/util");
 
 const app = express();
 
@@ -17,6 +17,6 @@ app.set("view engine", "ejs");
 conexao.authenticate();
 
 app.get("/", function (req, res) {
-    res.render("index");
+  res.render("login", { mensagem: "" });
 });
 app.listen(3000);
