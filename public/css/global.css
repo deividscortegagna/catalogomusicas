@@ -9,3 +9,29 @@
   max-width: 500px;
   padding: 1rem;
 }
+.nav__text__color {
+  color: #28a745;
+  margin: auto;
+}
+
+.jumbotron__style {
+  background: white;
+  border: 1px solid #28a745;
+  border-radius: 5px;
+  color: green;
+  /* margin-bottom: 1 rem; */
+}
+.style__img {
+  display: block;
+  margin: 0 auto;
+  width: 25%;
+}
+
+.title {
+  text-align: center;
+}
+.nav__color {
+  background-color: white;
+  border: 1px solid #28a745;
+  border-radius: 5px;
+}
