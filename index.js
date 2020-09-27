@@ -133,13 +133,13 @@ app.get("/musicas", function (req, res) {
 // });
 
 app.get("/musicas/novo/:mensagem?", function (req, res) {
-  Genero.findAll({ order: ["descricao"] }).then(function (genero) {
+  Artistas.findAll({ order: ["nome"] }).then(function (artista) {
     if (req.params.mensagem)
       res.render("musicas/novo", {
         mensagem: "Musica Incluida",
-        genero: genero,
+        artistas: artista,
       });
-    else res.render("musicas/novo", { mensagem: "", genero: genero });
+    else res.render("musicas/novo", { mensagem: "", artistas: artista });
   });
 });
 

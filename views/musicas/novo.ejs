@@ -44,15 +44,14 @@
               <label for="artista" class="style__label">Artistas</label>
               <select id="artista" name="artista" class="form-control">
                 <!-- Montando o select das categorias usando o forEach -->
+                <% artistas.forEach(function(artista){ %>
+                <option value="<%=artista.id%>"><%=artista.nome%></option>
+                <% }) %>
               </select>
             </div>
             <div class="form-group">
               <label for="genero" class="style__label">Genero</label>
-              <select id="genero" name="genero" class="form-control">
-                <% genero.forEach(function(genero){ %>
-                <option value="<%=genero.id%>"><%=genero.descricao%></option>
-                <% }) %>
-              </select>
+              <select id="genero" name="genero" class="form-control"></select>
             </div>
 
             <input class="btn btn-success" type="submit" value="Salvar" />
