@@ -1,11 +1,50 @@
 .card-title-h3 {
-  color: green;
+  color: #28a745;
 }
 .form-login__wrapper {
   background: white;
-  border: 1px black solid;
+  border: 1px #28a745 solid;
   border-radius: 0.5rem;
   margin: auto;
   max-width: 500px;
   padding: 1rem;
+}
+.nav__text__color {
+  color: #28a745;
+  margin: auto;
+}
+
+.jumbotron__style {
+  background: white;
+  border: 1px solid #28a745;
+  border-radius: 5px;
+  color: green;
+  /* margin-bottom: 1 rem; */
+}
+.style__img {
+  display: block;
+  margin: 0 auto;
+  width: 25%;
+}
+
+.title {
+  text-align: center;
+}
+.nav__color {
+  background-color: white;
+  border: 1px solid #28a745;
+  border-radius: 5px;
+}
+.table__style {
+  color: #28a745;
+}
+.title__h3 {
+  color: #28a745;
+}
+.style__label {
+  color: #28a745;
+}
+.card__body__style {
+  border: 1px solid #28a745;
+  border-radius: 5px;
 }
