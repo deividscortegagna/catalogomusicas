@@ -43,6 +43,16 @@
                 title="Editar Artista"
               ></a>
             </td>
+            <td>
+              <a
+                href="/artistas/excluir/<%=artista.id%>"
+                class="fas fa-trash"
+                style="color: #28a745"
+                ata-toggle="tooltip"
+                title="Excluir artistas"
+                onclick=" return confirm('Confirma a Exclusão?')"
+              ></a>
+            </td>
           </tr>
 
           <% }) %>

@@ -3,9 +3,9 @@ const bodyParser = require("body-parser");
 const conexao = require("./bd/conexao");
 const Sequelize = require("sequelize");
 const Usuarios = require("./bd/Usuarios");
-const Musicas = require("./bd/Musicas");
 const Genero = require("./bd/Genero");
 const Artistas = require("./bd/Artistas");
+const Musicas = require("./bd/Musicas");
 const formataData = require("./public/js/util");
 
 const app = express();
@@ -48,25 +48,6 @@ app.post("/usuarios/salvar", function (req, res) {
   Usuarios.create({ nome: nome, login: email, senha: senha }).then(
     res.render("login", { mensagem: "Usuario Cadastrado." })
   );
-});
-
-//-------------------------------------------------Listando Musica-------------------------------------
-
-app.get("/musicas", function (req, res) {
-  res.render("musicas/musicas");
-});
-app.get("/musicas/novo", function (req, res) {
-  res.render("musicas/novo", { mensagem: "" });
-});
-app.post("/musicas/salvar", function (req, res) {
-  let nome = req.body.nome;
-  let ano = req.body.ano;
-  let artistas = req.body.artistas;
-  Musicas.create({
-    nome: nome,
-    ano: ano,
-    categoriaId: categoria,
-  }).then(res.redirect("/musicas/novo/incluido"));
 });
 
 // ----------------------------------------------------- Generos-------------------------
@@ -140,5 +121,36 @@ app.post("/artistas/atualizar", function (req, res) {
       res.redirect("/artistas");
     }
   );
+});
+
+//-------------------------------------------------Listando Musica-------------------------------------
+
+app.get("/musicas", function (req, res) {
+  res.render("musicas/musicas");
+});
+// app.get("/musicas/novo", function (req, res) {
+//   res.render("musicas/novo", { mensagem: "" });
+// });
+
+app.get("/musicas/novo/:mensagem?", function (req, res) {
+  Genero.findAll({ order: ["descricao"] }).then(function (genero) {
+    if (req.params.mensagem)
+      res.render("musicas/novo", {
+        mensagem: "Musica Incluida",
+        genero: genero,
+      });
+    else res.render("musicas/novo", { mensagem: "", genero: genero });
+  });
+});
+
+app.post("/musicas/salvar", function (req, res) {
+  let nome = req.body.nome;
+  let ano = req.body.ano;
+  let artistas = req.body.artistas;
+  Musicas.create({
+    nome: nome,
+    ano: ano,
+    artistasId: artistas,
+  }).then(res.redirect("/musicas/novo/incluido"));
 });
 app.listen(3000);

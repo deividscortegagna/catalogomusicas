@@ -41,6 +41,16 @@
                 title="Editar Genero"
               ></a>
             </td>
+            <td>
+              <a
+                href="/generos/excluir/<%=gen.id%>"
+                class="fas fa-trash"
+                style="color: #28a745"
+                ata-toggle="tooltip"
+                title="Excluir Genero"
+                onclick=" return confirm('Confirma a Exclusão?')"
+              ></a>
+            </td>
           </tr>
 
           <% }) %>

@@ -2,7 +2,6 @@ const Sequelize = require("sequelize");
 const conexao = require("./conexao");
 const Usuarios = require("./Usuarios");
 const Genero = require("./Genero");
-const Artista = require("./Artistas");
 const Artistas = require("./Artistas");
 
 const Musicas = conexao.define("musicas", {
@@ -14,7 +13,19 @@ const Musicas = conexao.define("musicas", {
   titulo: Sequelize.STRING,
   ano: Sequelize.INTEGER,
 });
+
+Artistas.hasMany(Musicas, {
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
 Musicas.belongsTo(Artistas);
+
+Genero.hasMany(Musicas, {
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
+Musicas.belongsTo(Genero);
+
 Musicas.sync({ force: false });
 
 module.exports = Musicas;

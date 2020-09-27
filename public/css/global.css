@@ -1,9 +1,9 @@
 .card-title-h3 {
-  color: green;
+  color: #28a745;
 }
 .form-login__wrapper {
   background: white;
-  border: 1px black solid;
+  border: 1px #28a745 solid;
   border-radius: 0.5rem;
   margin: auto;
   max-width: 500px;
@@ -43,4 +43,8 @@
 }
 .style__label {
   color: #28a745;
+}
+.card__body__style {
+  border: 1px solid #28a745;
+  border-radius: 5px;
 }
