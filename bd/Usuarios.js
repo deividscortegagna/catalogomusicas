@@ -11,8 +11,17 @@ const Usuarios = conexao.define("usuarios", {
     autoIncrement: true,
   },
   nome: Sequelize.STRING,
-  login: Sequelize.STRING,
-  senha: Sequelize.STRING,
+  login: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
+  },
+  senha: {
+    type: Sequelize.STRING,
+    validate: {
+      len: [6],
+    }
+  }
 });
 
 Usuarios.sync({ force: false });

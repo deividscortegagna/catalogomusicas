@@ -7,6 +7,7 @@ const Genero = require("./bd/Genero");
 const Artistas = require("./bd/Artistas");
 const Musicas = require("./bd/Musicas");
 const formataData = require("./public/js/util");
+const bcrypt = require('bcryptjs');
 
 const app = express();
 
@@ -19,6 +20,7 @@ conexao.authenticate();
 app.get("/", function (req, res) {
   res.render("login", { mensagem: "" });
 });
+
 app.get("/index", function (req, res) {
   res.render("index");
 });
@@ -28,7 +30,7 @@ app.post("/login", function (req, res) {
     usuario
   ) {
     if (usuario != undefined) {
-      if (usuario.senha == req.body.senha) {
+      if (bcrypt.compareSync(req.body.senha, usuario.senha)) {
         res.redirect("/index");
       } else res.render("login", { mensagem: "Usuário ou senha inválidos" });
     } else res.render("login", { mensagem: "Usuário ou senha inválidos" });
@@ -38,15 +40,21 @@ app.post("/login", function (req, res) {
 app.get("/usuarios/novo", function (req, res) {
   res.render("usuarios");
 });
+
 app.get("/usuarios/cancelar", function (req, res) {
   res.render("login", { mensagem: "" });
 });
+
 app.post("/usuarios/salvar", function (req, res) {
   let nome = req.body.nome;
-  let email = req.body.login;
+  let login = req.body.login;
   let senha = req.body.senha;
-  Usuarios.create({ nome: nome, login: email, senha: senha }).then(
-    res.render("login", { mensagem: "Usuario Cadastrado." })
+
+  let salto = bcrypt.genSaltSync(10);
+  let senhaCriptografada = bcrypt.hashSync(senha, salto);
+    
+  Usuarios.create({ nome, login, senha: senhaCriptografada }).then(
+    res.render("login", { mensagem: "Usuário Cadastrado." })
   );
 });
 

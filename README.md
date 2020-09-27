@@ -17,5 +17,7 @@ npm run serve
 
 # Autores
 [Deivid Scortegagna](https://github.com/evilpsy)
+
 [Felipe Triches](https://github.com/felipetriches20)
+
 [Mateus Castro](https://github.com/omateuscastro)
