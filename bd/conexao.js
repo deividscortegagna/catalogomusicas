@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 const conexao = new Sequelize(
   "catalogomusicasbd",
   "postgres",
-  "lipetriches96",
+  "postgres",
   {
     host: "localhost",
     dialect: "postgres",
