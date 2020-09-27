@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Catalago de Musicas</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/global.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <%- include ('../partials/navbar');%>
+
+      <br />
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title title__h3">Cadastro de Artistas</h3>
+          <form action="/artistas/atualizar" method="POST">
+            <div class="form-group">
+              <label for="descricao" class="style__label"
+                >Nome do Artista</label
+              >
+              <input
+                type="text"
+                name="nome"
+                id="nome"
+                value="<%=artista.nome%>"
+                placeholder="Informe o Nome do Artista."
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="site" class="style__label">Site do Artista</label>
+              <input
+                type="text"
+                name="site"
+                id="site"
+                value="<%=artista.site%>"
+                placeholder="Informe o Site do Artista."
+                class="form-control"
+                required
+              />
+            </div>
+            <input type="hidden" name="id" value="<%=artista.id%>" />
+            <input class="btn btn-success" type="submit" value="Atualizar" />
+            <a href="/artistas" class="btn btn-outline-success"
+              >Lista Artistas</a
+            >
+          </form>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>

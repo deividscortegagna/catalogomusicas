@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Catalogo de Musicas</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <%- include ('../partials/navbar');%>
+      <h3 class="title__h3">Generos Cadastrados</h3>
+      <br />
+      <a href="/generos/novo" class="btn btn-success">Novo Genero</a
+      ><br /><br />
+      <table class="table table-striped table__style">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Descrição</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% genero.forEach(function(gen){ %>
+          <tr>
+            <td><%=gen.id %></td>
+            <td><%=gen.descricao %></td>
+            <td>
+              <a
+                href="/generos/editar/<%=gen.id%>"
+                class="fas fa-edit"
+                style="color: #28a745"
+                ata-toggle="tooltip"
+                title="Editar Genero"
+              ></a>
+            </td>
+          </tr>
+
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/bootstrap.min.js"></script>
+  </body>
+</html>

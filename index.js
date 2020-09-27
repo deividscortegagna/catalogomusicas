@@ -50,4 +50,95 @@ app.post("/usuarios/salvar", function (req, res) {
   );
 });
 
+//-------------------------------------------------Listando Musica-------------------------------------
+
+app.get("/musicas", function (req, res) {
+  res.render("musicas/musicas");
+});
+app.get("/musicas/novo", function (req, res) {
+  res.render("musicas/novo", { mensagem: "" });
+});
+app.post("/musicas/salvar", function (req, res) {
+  let nome = req.body.nome;
+  let ano = req.body.ano;
+  let artistas = req.body.artistas;
+  Musicas.create({
+    nome: nome,
+    ano: ano,
+    categoriaId: categoria,
+  }).then(res.redirect("/musicas/novo/incluido"));
+});
+
+// ----------------------------------------------------- Generos-------------------------
+
+// app.get("/generos", function (req, res) {
+// res.render("generos/generos");
+// });
+app.get("/generos", function (req, res) {
+  //findAll: retorna todos os registros do banco de dados
+  Genero.findAll({ order: ["id"] }).then(function (genero) {
+    res.render("generos/generos", { genero: genero });
+  });
+});
+
+app.get("/generos/novo", function (req, res) {
+  res.render("generos/novo", { mensagem: "" });
+});
+app.post("/generos/salvar", function (req, res) {
+  let descricao = req.body.descricao;
+  Genero.create({ descricao: descricao }).then(
+    //create: permite salvar algo no banco de dados
+    res.render("generos/novo", { mensagem: "Genero Incluido" })
+  );
+});
+app.get("/generos/editar/:id", function (req, res) {
+  let id = req.params.id;
+  Genero.findByPk(id).then(function (gen) {
+    res.render("generos/editar", { gen: gen });
+  });
+});
+app.post("/generos/atualizar", function (req, res) {
+  let id = req.body.id;
+  let descricao = req.body.descricao;
+  Genero.update({ descricao: descricao }, { where: { id: id } }).then(
+    function () {
+      res.redirect("/generos");
+    }
+  );
+});
+// -------------------------------------------------------Artistas-----------------------
+app.get("/artistas", function (req, res) {
+  //findAll: retorna todos os registros do banco de dados
+  Artistas.findAll({ order: ["id"] }).then(function (artistas) {
+    res.render("artistas/artistas", { artistas: artistas });
+  });
+});
+
+app.get("/artistas/novo", function (req, res) {
+  res.render("artistas/novo", { mensagem: "" });
+});
+app.post("/artistas/salvar", function (req, res) {
+  let nome = req.body.nome;
+  let site = req.body.site;
+  Artistas.create({ nome: nome, site: site }).then(
+    //create: permite salvar algo no banco de dados, nesse caso categoria
+    res.render("artistas/novo", { mensagem: "Artista  Incluido" })
+  );
+});
+app.get("/artistas/editar/:id", function (req, res) {
+  let id = req.params.id;
+  Artistas.findByPk(id).then(function (artista) {
+    res.render("artistas/editar", { artista: artista });
+  });
+});
+app.post("/artistas/atualizar", function (req, res) {
+  let id = req.body.id;
+  let nome = req.body.nome;
+  let site = req.body.site;
+  Artistas.update({ nome: nome, site: site }, { where: { id: id } }).then(
+    function () {
+      res.redirect("/artistas");
+    }
+  );
+});
 app.listen(3000);
