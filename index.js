@@ -7,10 +7,10 @@ const Genero = require("./bd/Genero");
 const Artistas = require("./bd/Artistas");
 const Musicas = require("./bd/Musicas");
 const formataData = require("./public/js/util");
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
 const app = express();
-const port = 3000
+const port = 3000;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -136,15 +136,20 @@ app.post("/artistas/atualizar", function (req, res) {
 
 app.get("/musicas/lista/:mensagem?", async function (req, res) {
   try {
-    const musicas = await Musicas
-      .findAll({ order: ["titulo"], include: [{ model: Artistas }, { model: Genero }] })
-    if (req.params.mensagem === 'incluido') {
-      res.render("musicas/musicas", { mensagem: "Música cadastrada com Sucesso.", musicas })
+    const musicas = await Musicas.findAll({
+      order: ["titulo"],
+      include: [{ model: Artistas }, { model: Genero }],
+    });
+    if (req.params.mensagem === "incluido") {
+      res.render("musicas/musicas", {
+        mensagem: "Música cadastrada com Sucesso.",
+        musicas,
+      });
     } else {
       res.render("musicas/musicas", { mensagem: "", musicas });
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 });
 
@@ -155,7 +160,7 @@ app.get("/musicas/novo/:mensagem?", async function (req, res) {
 
     res.render("musicas/novo", { mensagem: "", artistas, generos });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 });
 
@@ -164,7 +169,7 @@ app.post("/musicas/salvar", function (req, res) {
   let titulo = req.body.titulo;
   let ano = req.body.ano;
   let artista = req.body.artista;
-  console.log("Artista selecionado: ", req.body.artista)
+  console.log("Artista selecionado: ", req.body.artista);
   let genero = req.body.genero;
   Musicas.create({
     nome,
@@ -172,11 +177,16 @@ app.post("/musicas/salvar", function (req, res) {
     ano,
     artistaId: artista,
     generoId: genero,
-  }).then(
-    res.redirect("/musicas/lista/incluido")
-  );
+  }).then(res.redirect("/musicas/lista/incluido"));
+});
+
+app.get("/musicas/excluir/:id", function (req, res) {
+  let id = req.params.id;
+  Musicas.destroy({ where: { id: id } }).then(function () {
+    res.redirect("/musicas/lista");
+  });
 });
 
 app.listen(port, () => {
-  console.log(`O servidor está rodando http://localhost:${port}`)
-})
+  console.log(`O servidor está rodando http://localhost:${port}`);
+});

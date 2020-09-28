@@ -32,15 +32,34 @@
         </thead>
         <tbody>
           <% musicas.forEach(function(musica){ %>
-            <tr>
-              <td><%=musica.id %></td>
-              <td><%=musica.titulo %></td>
-              <td><%=musica.ano %></td>
-              <td><%=musica.artista.nome %></td>
-              <td><%=musica.genero.descricao %></td>
-            </tr>
-  
-            <% }) %>
+          <tr>
+            <td><%=musica.id %></td>
+            <td><%=musica.titulo %></td>
+            <td><%=musica.ano %></td>
+            <td><%=musica.artista.nome %></td>
+            <td><%=musica.genero.descricao %></td>
+            <td>
+              <a
+                href="/musicas/editar/<%=musicas.id%>"
+                class="fas fa-edit"
+                style="color: #28a745"
+                ata-toggle="tooltip"
+                title="Editar Musica"
+              ></a>
+            </td>
+            <td>
+              <a
+                href="/musicas/excluir/<%=musica.id%>"
+                class="fas fa-trash"
+                style="color: #28a745"
+                ata-toggle="tooltip"
+                title="Excluir Musica"
+                onclick=" return confirm('Confirma a Exclusão?')"
+              ></a>
+            </td>
+          </tr>
+
+          <% }) %>
         </tbody>
       </table>
 
