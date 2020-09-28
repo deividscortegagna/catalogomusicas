@@ -1,4 +1,4 @@
-# Catálogo de Músicas
+# Catálogo de Músicas!
 
 Projeto de aplicação para controle de catálogo de Músicas, utilizando Express, EJS, Bootstrap, Sequelize e banco de dados PostgreSQL.
 
