@@ -18,6 +18,7 @@ Artistas.hasMany(Musicas, {
   onDelete: "RESTRICT",
   onUpdate: "CASCADE",
 });
+
 Musicas.belongsTo(Artistas);
 
 Genero.hasMany(Musicas, {
@@ -25,6 +26,13 @@ Genero.hasMany(Musicas, {
   onUpdate: "CASCADE",
 });
 Musicas.belongsTo(Genero);
+
+Usuarios.hasMany(Musicas, {
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
+
+Musicas.belongsTo(Usuarios);
 
 Musicas.sync({ force: false });
 
