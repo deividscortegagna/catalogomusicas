@@ -150,6 +150,9 @@ app.get("/musicas/lista/:mensagem?", autorizacao, async function (req, res) {
       order: ["titulo"],
       include: [{ model: Artistas }, { model: Genero }],
     });
+
+    console.log("Musicas: ", musicas)
+
     if (req.params.mensagem === "incluido") {
       res.render("musicas/musicas", {
         mensagem: "Música cadastrada com Sucesso.",
@@ -175,19 +178,26 @@ app.get("/musicas/novo/:mensagem?", async function (req, res) {
 });
 
 app.post("/musicas/salvar", function (req, res) {
-  let nome = req.body.nome;
-  let titulo = req.body.titulo;
-  let ano = req.body.ano;
-  let artista = req.body.artista;
-  console.log("Artista selecionado: ", req.body.artista);
-  let genero = req.body.genero;
-  Musicas.create({
-    nome,
-    titulo,
-    ano,
-    artistaId: artista,
-    generoId: genero,
-  }).then(res.redirect("/musicas/lista/incluido"));
+  try {
+    let nome = req.body.nome;
+    let titulo = req.body.titulo;
+    let ano = req.body.ano;
+    let artista = req.body.artista;
+    let genero = req.body.genero;
+    let usuario = req.session.usuario.id;
+
+    Musicas.create({
+      nome,
+      titulo,
+      ano,
+      artistaId: artista,
+      generoId: genero,
+      usuarioId: usuario
+    }).then(res.redirect("/musicas/lista/incluido"));
+  } catch (error) {
+    console.log(error);
+  }
+  
 });
 
 app.get("/musicas/excluir/:id", function (req, res) {
