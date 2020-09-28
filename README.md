@@ -4,7 +4,7 @@ Projeto de aplicação para controle de catálogo de Músicas, utilizando Expres
 
 É possível realizar o cadastro de usuários, efetuar login no sistema e gerenciar músicas, artistas e gêneros.
 
-# Instrucões
+# Instruções
 ### Baixar dependências.
 ```
 npm install
