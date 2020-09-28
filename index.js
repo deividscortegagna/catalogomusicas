@@ -10,6 +10,7 @@ const formataData = require("./public/js/util");
 const bcrypt = require('bcryptjs');
 
 const app = express();
+const port = 3000
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -52,7 +53,7 @@ app.post("/usuarios/salvar", function (req, res) {
 
   let salto = bcrypt.genSaltSync(10);
   let senhaCriptografada = bcrypt.hashSync(senha, salto);
-    
+
   Usuarios.create({ nome, login, senha: senhaCriptografada }).then(
     res.render("login", { mensagem: "Usuário Cadastrado." })
   );
@@ -133,32 +134,49 @@ app.post("/artistas/atualizar", function (req, res) {
 
 //-------------------------------------------------Listando Musica-------------------------------------
 
-app.get("/musicas", function (req, res) {
-  res.render("musicas/musicas");
+app.get("/musicas/lista/:mensagem?", async function (req, res) {
+  try {
+    const musicas = await Musicas
+      .findAll({ order: ["titulo"], include: [{ model: Artistas }, { model: Genero }] })
+    if (req.params.mensagem === 'incluido') {
+      res.render("musicas/musicas", { mensagem: "Música cadastrada com Sucesso.", musicas })
+    } else {
+      res.render("musicas/musicas", { mensagem: "", musicas });
+    }
+  } catch (error) {
+    console.log(error)
+  }
 });
-// app.get("/musicas/novo", function (req, res) {
-//   res.render("musicas/novo", { mensagem: "" });
-// });
 
-app.get("/musicas/novo/:mensagem?", function (req, res) {
-  Artistas.findAll({ order: ["nome"] }).then(function (artista) {
-    if (req.params.mensagem)
-      res.render("musicas/novo", {
-        mensagem: "Musica Incluida",
-        artistas: artista,
-      });
-    else res.render("musicas/novo", { mensagem: "", artistas: artista });
-  });
+app.get("/musicas/novo/:mensagem?", async function (req, res) {
+  try {
+    const artistas = await Artistas.findAll({ order: ["nome"] });
+    const generos = await Genero.findAll({ order: ["descricao"] });
+
+    res.render("musicas/novo", { mensagem: "", artistas, generos });
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 app.post("/musicas/salvar", function (req, res) {
   let nome = req.body.nome;
+  let titulo = req.body.titulo;
   let ano = req.body.ano;
-  let artistas = req.body.artistas;
+  let artista = req.body.artista;
+  console.log("Artista selecionado: ", req.body.artista)
+  let genero = req.body.genero;
   Musicas.create({
-    nome: nome,
-    ano: ano,
-    artistasId: artistas,
-  }).then(res.redirect("/musicas/novo/incluido"));
+    nome,
+    titulo,
+    ano,
+    artistaId: artista,
+    generoId: genero,
+  }).then(
+    res.redirect("/musicas/lista/incluido")
+  );
 });
-app.listen(3000);
+
+app.listen(port, () => {
+  console.log(`O servidor está rodando http://localhost:${port}`)
+})

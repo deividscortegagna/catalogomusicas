@@ -31,9 +31,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr></tr>
+          <% musicas.forEach(function(musica){ %>
+            <tr>
+              <td><%=musica.id %></td>
+              <td><%=musica.titulo %></td>
+              <td><%=musica.ano %></td>
+              <td><%=musica.artista.nome %></td>
+              <td><%=musica.genero.descricao %></td>
+            </tr>
+  
+            <% }) %>
         </tbody>
       </table>
+
+      <% if(mensagem){ %>
+      <div class="alert alert-info">
+        <strong>Novo Registro!</strong> <%= mensagem %>
+      </div>
+      <% } %>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

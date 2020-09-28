@@ -18,13 +18,13 @@
           <form action="/musicas/salvar" method="POST">
             <div class="form-group">
               <label for="descricao" class="style__label"
-                >Titulo da Musica</label
+                >Título da Musica</label
               >
               <input
                 type="text"
-                name="nome"
-                id="nome"
-                placeholder="Informe o Nome da Musica."
+                name="titulo"
+                id="titulo"
+                placeholder="Informe o Título da Musica."
                 class="form-control"
                 required
               />
@@ -42,8 +42,9 @@
             </div>
             <div class="form-group">
               <label for="artista" class="style__label">Artistas</label>
-              <select id="artista" name="artista" class="form-control">
+              <select id="artista" name="artista" class="form-control" required>
                 <!-- Montando o select das categorias usando o forEach -->
+                <option value=""></option>
                 <% artistas.forEach(function(artista){ %>
                 <option value="<%=artista.id%>"><%=artista.nome%></option>
                 <% }) %>
@@ -51,11 +52,16 @@
             </div>
             <div class="form-group">
               <label for="genero" class="style__label">Genero</label>
-              <select id="genero" name="genero" class="form-control"></select>
+              <select id="genero" name="genero" class="form-control" required>
+                <option value=""> </option>
+                <% generos.forEach(function(genero){ %>
+                  <option value="<%=genero.id%>"><%=genero.descricao%></option>
+                  <% }) %>
+              </select>
             </div>
 
             <input class="btn btn-success" type="submit" value="Salvar" />
-            <a href="/musicas" class="btn btn-outline-success">Lista Musicas</a>
+            <a href="/musicas/lista" class="btn btn-outline-success">Lista Musicas</a>
           </form>
         </div>
         <% if(mensagem){ %>
