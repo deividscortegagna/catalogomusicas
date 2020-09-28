@@ -1,13 +1,14 @@
 const express = require("express");
+const session = require('express-session')
 const bodyParser = require("body-parser");
 const conexao = require("./bd/conexao");
-const Sequelize = require("sequelize");
 const Usuarios = require("./bd/Usuarios");
 const Genero = require("./bd/Genero");
 const Artistas = require("./bd/Artistas");
 const Musicas = require("./bd/Musicas");
 const formataData = require("./public/js/util");
 const bcrypt = require("bcryptjs");
+const autorizacao = require("./autorizacao/autorizacao");
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,7 @@ const port = 3000;
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
+app.use(session({ secret: "catalogo", resave: true, saveUninitialized: true }))
 
 conexao.authenticate();
 
@@ -22,8 +24,8 @@ app.get("/", function (req, res) {
   res.render("login", { mensagem: "" });
 });
 
-app.get("/index", function (req, res) {
-  res.render("index");
+app.get("/index", autorizacao, function (req, res) {
+  res.render("index", { usuario: req.session.nome});
 });
 
 app.post("/login", function (req, res) {
@@ -32,11 +34,19 @@ app.post("/login", function (req, res) {
   ) {
     if (usuario != undefined) {
       if (bcrypt.compareSync(req.body.senha, usuario.senha)) {
+        req.session.usuario = { id: usuario.id, nome: usuario.nome, login: usuario.login }
         res.redirect("/index");
       } else res.render("login", { mensagem: "Usuário ou senha inválidos" });
     } else res.render("login", { mensagem: "Usuário ou senha inválidos" });
   });
 });
+
+app.get("/logout", function (req, res) {
+  req.session.usuario = undefined;
+  res.redirect("/");
+});
+
+
 
 app.get("/usuarios/novo", function (req, res) {
   res.render("usuarios");
@@ -134,7 +144,7 @@ app.post("/artistas/atualizar", function (req, res) {
 
 //-------------------------------------------------Listando Musica-------------------------------------
 
-app.get("/musicas/lista/:mensagem?", async function (req, res) {
+app.get("/musicas/lista/:mensagem?", autorizacao, async function (req, res) {
   try {
     const musicas = await Musicas.findAll({
       order: ["titulo"],
