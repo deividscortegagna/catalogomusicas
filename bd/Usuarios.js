@@ -19,7 +19,7 @@ const Usuarios = conexao.define("usuarios", {
   senha: {
     type: Sequelize.STRING,
     validate: {
-      len: [6],
+      len: [6,20],
     }
   }
 });
