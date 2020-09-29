@@ -17,31 +17,10 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(session({ secret: "catalogo", resave: true, saveUninitialized: true }))
+// Utilização de um arquivo de rotas para melhor organização.
 app.use(rotas);
 
 conexao.authenticate();
-
-app.get("/index", autorizacao, function (req, res) {
-  res.render("index", { usuario: req.session.nome});
-});
-
-app.post("/login", function (req, res) {
-  Usuarios.findOne({ where: { login: req.body.login } }).then(function (
-    usuario
-  ) {
-    if (usuario != undefined) {
-      if (bcrypt.compareSync(req.body.senha, usuario.senha)) {
-        req.session.usuario = { id: usuario.id, nome: usuario.nome, login: usuario.login }
-        res.redirect("/index");
-      } else res.render("login", { mensagem: "Usuário ou senha inválidos" });
-    } else res.render("login", { mensagem: "Usuário ou senha inválidos" });
-  });
-});
-
-app.get("/logout", function (req, res) {
-  req.session.usuario = undefined;
-  res.redirect("/");
-});
 
 // ---------- Usuários ----------
 
