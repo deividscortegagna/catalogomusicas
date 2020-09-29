@@ -44,16 +44,26 @@
                 name="senha"
                 id="senha"
                 class="form-control"
+                minlength="6"
                 required
               />
+              <small class="form-text text-muted">*Campos Obrigatórios</small>
             </div>
             <input
               class="btn btn-success btn-block"
               type="submit"
               value="Salvar"
             /><br />
+            <a href="/" class="btn btn-outline-success btn-block"
+              >Cancelar</a
+            >
           </form>
         </div>
+        <% if(mensagem){ %>
+          <div class="alert alert-danger">
+            <strong>Alerta</strong> <%= mensagem %>
+          </div>  
+        <% } %>
       </div>
     </div>
     <script

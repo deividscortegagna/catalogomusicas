@@ -13,7 +13,7 @@ const Usuarios = conexao.define("usuarios", {
     allowNull: false,
     unique: true
   },
-  senha: Sequelize.STRING,
+  senha: Sequelize.STRING
 });
 
 Usuarios.sync({ force: false });

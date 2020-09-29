@@ -2,13 +2,11 @@ const express = require("express");
 const session = require('express-session')
 const bodyParser = require("body-parser");
 const conexao = require("./bd/conexao");
-const Usuarios = require("./bd/Usuarios");
 const Genero = require("./bd/Genero");
 const Artistas = require("./bd/Artistas");
 const Musicas = require("./bd/Musicas");
-const formataData = require("./public/js/util");
-const bcrypt = require("bcryptjs");
 const autorizacao = require("./autorizacao/autorizacao");
+const rotas = require('./rotas');
 
 const app = express();
 const port = 3000;
@@ -17,63 +15,13 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(session({ secret: "catalogo", resave: true, saveUninitialized: true }))
+// Utilização de um arquivo de rotas para melhor organização.
+app.use(rotas);
 
 conexao.authenticate();
 
-app.get("/", function (req, res) {
-  res.render("login", { mensagem: "" });
-});
+// ---------- Gêneros ----------
 
-app.get("/index", autorizacao, function (req, res) {
-  res.render("index", { usuario: req.session.usuario.nome});
-});
-
-app.post("/login", function (req, res) {
-  Usuarios.findOne({ where: { login: req.body.login } }).then(function (
-    usuario
-  ) {
-    if (usuario != undefined) {
-      if (bcrypt.compareSync(req.body.senha, usuario.senha)) {
-        req.session.usuario = { id: usuario.id, nome: usuario.nome, login: usuario.login }
-        res.redirect("/index");
-      } else res.render("login", { mensagem: "Usuário ou senha inválidos" });
-    } else res.render("login", { mensagem: "Usuário ou senha inválidos" });
-  });
-});
-
-app.get("/logout", function (req, res) {
-  req.session.usuario = undefined;
-  res.redirect("/");
-});
-
-
-
-app.get("/usuarios/novo", function (req, res) {
-  res.render("usuarios");
-});
-
-app.get("/usuarios/cancelar", function (req, res) {
-  res.render("login", { mensagem: "" });
-});
-
-app.post("/usuarios/salvar", function (req, res) {
-  let nome = req.body.nome;
-  let login = req.body.login;
-  let senha = req.body.senha;
-
-  let salto = bcrypt.genSaltSync(10);
-  let senhaCriptografada = bcrypt.hashSync(senha, salto);
-
-  Usuarios.create({ nome, login, senha: senhaCriptografada }).then(
-    res.render("login", { mensagem: "Usuário Cadastrado." })
-  );
-});
-
-// ----------------------------------------------------- Generos-------------------------
-
-// app.get("/generos", function (req, res) {
-// res.render("generos/generos");
-// });
 app.get("/generos", function (req, res) {
   //findAll: retorna todos os registros do banco de dados
   Genero.findAll({ order: ["id"] }).then(function (genero) {
@@ -150,6 +98,9 @@ app.get("/musicas/lista/:mensagem?", autorizacao, async function (req, res) {
       order: ["titulo"],
       include: [{ model: Artistas }, { model: Genero }],
     });
+
+    console.log("Musicas: ", musicas)
+
     if (req.params.mensagem === "incluido") {
       res.render("musicas/musicas", {
         mensagem: "Música cadastrada com Sucesso.",
@@ -175,19 +126,26 @@ app.get("/musicas/novo/:mensagem?", async function (req, res) {
 });
 
 app.post("/musicas/salvar", function (req, res) {
-  let nome = req.body.nome;
-  let titulo = req.body.titulo;
-  let ano = req.body.ano;
-  let artista = req.body.artista;
-  console.log("Artista selecionado: ", req.body.artista);
-  let genero = req.body.genero;
-  Musicas.create({
-    nome,
-    titulo,
-    ano,
-    artistaId: artista,
-    generoId: genero,
-  }).then(res.redirect("/musicas/lista/incluido"));
+  try {
+    let nome = req.body.nome;
+    let titulo = req.body.titulo;
+    let ano = req.body.ano;
+    let artista = req.body.artista;
+    let genero = req.body.genero;
+    let usuario = req.session.usuario.id;
+
+    Musicas.create({
+      nome,
+      titulo,
+      ano,
+      artistaId: artista,
+      generoId: genero,
+      usuarioId: usuario
+    }).then(res.redirect("/musicas/lista/incluido"));
+  } catch (error) {
+    console.log(error);
+  }
+  
 });
 
 app.get("/musicas/excluir/:id", function (req, res) {
