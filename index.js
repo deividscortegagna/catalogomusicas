@@ -2,11 +2,9 @@ const express = require("express");
 const session = require('express-session')
 const bodyParser = require("body-parser");
 const conexao = require("./bd/conexao");
-const Usuarios = require("./bd/Usuarios");
 const Genero = require("./bd/Genero");
 const Artistas = require("./bd/Artistas");
 const Musicas = require("./bd/Musicas");
-const bcrypt = require("bcryptjs");
 const autorizacao = require("./autorizacao/autorizacao");
 const rotas = require('./rotas');
 
@@ -21,32 +19,6 @@ app.use(session({ secret: "catalogo", resave: true, saveUninitialized: true }))
 app.use(rotas);
 
 conexao.authenticate();
-
-// ---------- Usuários ----------
-
-app.get("/usuarios/novo", function (req, res) {
-  res.render("usuarios");
-});
-
-app.get("/usuarios/cancelar", function (req, res) {
-  res.render("login", { mensagem: "" });
-});
-
-app.post("/usuarios/salvar", function (req, res) {
-  let nome = req.body.nome;
-  let login = req.body.login;
-  let senha = req.body.senha;
-
-  let salto = bcrypt.genSaltSync(10);
-  let senhaCriptografada = bcrypt.hashSync(senha, salto);
-
-  Usuarios.create({ nome, login, senha: senhaCriptografada })
-  .then(
-    res.render("login", { mensagem: "Usuário Cadastrado." })
-  ).catch(function (err) {
-    console.log("Erro ao criar usuário: ", err)
-  });
-});
 
 // ---------- Gêneros ----------
 

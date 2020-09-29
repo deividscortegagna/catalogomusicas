@@ -46,9 +46,14 @@
             >
           </form>
         </div>
-        <% if(mensagem){ %>
+        <% if(erro){ %>
         <div class="alert alert-danger">
-          <strong>Alerta</strong> <%= mensagem %>
+          <strong>Alerta</strong> <%= erro %>
+        </div>
+        <% } %>
+        <% if(mensagem){ %>
+        <div class="alert alert-info">
+          <strong>Novo Registro!</strong> <%= mensagem %>
         </div>
         <% } %>
       </div>
