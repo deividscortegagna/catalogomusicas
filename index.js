@@ -25,7 +25,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/index", autorizacao, function (req, res) {
-  res.render("index", { usuario: req.session.nome});
+  res.render("index", { usuario: req.session.usuario.nome});
 });
 
 app.post("/login", function (req, res) {
