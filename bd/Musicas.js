@@ -30,7 +30,7 @@ Musicas.belongsTo(Genero);
 Usuarios.hasMany(Musicas, {
   onDelete: "RESTRICT",
   onUpdate: "CASCADE",
-})
+});
 Musicas.belongsTo(Usuarios);
 
 Musicas.sync({ force: false });
