@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const conexao = require("./conexao");
 
-const Genero = conexao.define("genero", {
+const Generos = conexao.define("generos", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -10,6 +10,6 @@ const Genero = conexao.define("genero", {
   descricao: Sequelize.STRING,
 });
 
-Genero.sync({ force: false });
+Generos.sync({ force: false });
 
-module.exports = Genero;
+module.exports = Generos;
