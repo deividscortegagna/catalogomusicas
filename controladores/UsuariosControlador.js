@@ -14,9 +14,6 @@ module.exports = {
       let senhaCriptografada = bcrypt.hashSync(senha, salto);
 
       const usuario = await Usuarios.create({ nome, login, senha: senhaCriptografada });
-      
-      console.log("usuario: ", usuario)
-
 
       if(usuario) 
         return res.render("login", { mensagem: "Usuário Cadastrado." , erro: ""});
@@ -24,7 +21,6 @@ module.exports = {
         return res.render("usuarios", { mensagem: "Não foi possível cadastrar o usuário." })
       }
     } catch (error) {
-      console.log("Errinho dus guri", error)
       if( error.name === 'SequelizeUniqueConstraintError' ) 
         return res.render("usuarios", { mensagem: "Não foi possível cadastrar o usuário, o e-mail já está associado a um usuário existente." })
       else

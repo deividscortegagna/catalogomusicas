@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const conexao = require("./conexao");
 const Usuarios = require("./Usuarios");
-const Genero = require("./Genero");
+const Genero = require("./Generos");
 const Artistas = require("./Artistas");
 
 const Musicas = conexao.define("musicas", {

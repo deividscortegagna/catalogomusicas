@@ -2,7 +2,7 @@ const express = require("express");
 const session = require('express-session')
 const bodyParser = require("body-parser");
 const conexao = require("./bd/conexao");
-const Genero = require("./bd/Genero");
+const Genero = require("./bd/Generos");
 const Artistas = require("./bd/Artistas");
 const Musicas = require("./bd/Musicas");
 const autorizacao = require("./autorizacao/autorizacao");
@@ -90,29 +90,7 @@ app.post("/artistas/atualizar", function (req, res) {
   );
 });
 
-//-------------------------------------------------Listando Musica-------------------------------------
 
-app.get("/musicas/lista/:mensagem?", autorizacao, async function (req, res) {
-  try {
-    const musicas = await Musicas.findAll({
-      order: ["titulo"],
-      include: [{ model: Artistas }, { model: Genero }],
-    });
-
-    console.log("Musicas: ", musicas)
-
-    if (req.params.mensagem === "incluido") {
-      res.render("musicas/musicas", {
-        mensagem: "Música cadastrada com Sucesso.",
-        musicas,
-      });
-    } else {
-      res.render("musicas/musicas", { mensagem: "", musicas });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
 
 app.get("/musicas/novo/:mensagem?", async function (req, res) {
   try {
