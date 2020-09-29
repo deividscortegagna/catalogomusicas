@@ -18,6 +18,7 @@ Artistas.hasMany(Musicas, {
   onDelete: "RESTRICT",
   onUpdate: "CASCADE",
 });
+
 Musicas.belongsTo(Artistas);
 
 Genero.hasMany(Musicas, {

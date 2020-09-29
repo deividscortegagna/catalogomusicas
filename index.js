@@ -6,9 +6,9 @@ const Usuarios = require("./bd/Usuarios");
 const Genero = require("./bd/Genero");
 const Artistas = require("./bd/Artistas");
 const Musicas = require("./bd/Musicas");
-const formataData = require("./public/js/util");
 const bcrypt = require("bcryptjs");
 const autorizacao = require("./autorizacao/autorizacao");
+const rotas = require('./rotas');
 
 const app = express();
 const port = 3000;
@@ -17,12 +17,9 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(session({ secret: "catalogo", resave: true, saveUninitialized: true }))
+app.use(rotas);
 
 conexao.authenticate();
-
-app.get("/", function (req, res) {
-  res.render("login", { mensagem: "" });
-});
 
 app.get("/index", autorizacao, function (req, res) {
   res.render("index", { usuario: req.session.nome});
@@ -46,7 +43,7 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
-
+// ---------- Usuários ----------
 
 app.get("/usuarios/novo", function (req, res) {
   res.render("usuarios");
@@ -64,16 +61,16 @@ app.post("/usuarios/salvar", function (req, res) {
   let salto = bcrypt.genSaltSync(10);
   let senhaCriptografada = bcrypt.hashSync(senha, salto);
 
-  Usuarios.create({ nome, login, senha: senhaCriptografada }).then(
+  Usuarios.create({ nome, login, senha: senhaCriptografada })
+  .then(
     res.render("login", { mensagem: "Usuário Cadastrado." })
-  );
+  ).catch(function (err) {
+    console.log("Erro ao criar usuário: ", err)
+  });
 });
 
-// ----------------------------------------------------- Generos-------------------------
+// ---------- Gêneros ----------
 
-// app.get("/generos", function (req, res) {
-// res.render("generos/generos");
-// });
 app.get("/generos", function (req, res) {
   //findAll: retorna todos os registros do banco de dados
   Genero.findAll({ order: ["id"] }).then(function (genero) {

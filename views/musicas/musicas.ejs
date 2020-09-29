@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Catalogo de Musicas</title>
+    <title>Catálogo de Músicas</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/global.css" />
@@ -16,7 +16,7 @@
   <body>
     <div class="container">
       <%- include ('../partials/navbar');%>
-      <h3 class="title__h3">Musicas Cadastradas</h3>
+      <h3 class="title__h3">Músicas Cadastradas</h3>
       <br />
       <a href="/musicas/novo" class="btn btn-success">Nova Musica</a
       ><br /><br />
@@ -27,7 +27,8 @@
             <th>Titulo</th>
             <th>Ano</th>
             <th>Artista</th>
-            <th>Genero</th>
+            <th>Gênero</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -46,14 +47,12 @@
                 ata-toggle="tooltip"
                 title="Editar Musica"
               ></a>
-            </td>
-            <td>
               <a
                 href="/musicas/excluir/<%=musica.id%>"
                 class="fas fa-trash"
                 style="color: #28a745"
                 ata-toggle="tooltip"
-                title="Excluir Musica"
+                title="Excluir Música"
                 onclick=" return confirm('Confirma a Exclusão?')"
               ></a>
             </td>
