@@ -144,7 +144,7 @@ app.post("/musicas/atualizar", function (req, res) {
   let ano = req.body.ano;
   Musicas.update({ titulo: titulo, ano: ano }, { where: { id: id } }).then(
     function () {
-      res.redirect("/musicas");
+      res.redirect("/musicas/lista");
     }
   );
 });
