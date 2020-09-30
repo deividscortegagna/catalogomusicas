@@ -47,7 +47,7 @@
               <select id="artista" name="artista" class="form-control" required>
                 <!-- Montando o select das categorias usando o forEach -->
                 <option value=""></option>
-                <% artista.forEach(function(artista){ if(artista.id ==
+                <% artistas.forEach(function(artista){ if(artista.id ==
                 musicas.artistaId) %>
                 <option value="<%=artista.id%>" selected>
                   <%=artista.nome%>
@@ -61,7 +61,7 @@
               <label for="genero" class="style__label">Genero</label>
               <select id="genero" name="genero" class="form-control" required>
                 <option value=""></option>
-                <% genero.forEach(function(genero){ if(genero.id ==
+                <% generos.forEach(function(genero){ if(genero.id ==
                 musicas.generoId) %>
                 <option value="<%=genero.id%>" selected>
                   <%=genero.descricao%>

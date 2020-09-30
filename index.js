@@ -138,6 +138,13 @@ app.post("/musicas/salvar", function (req, res) {
   
 });
 
+app.get("/musicas/editar/:id", function (req, res) {
+  let id = req.params.id;
+  Musicas.findByPk(id).then(function (musicas) {
+    res.render("musicas/editar", { musicas: musicas });
+  });
+});
+
 app.post("/musicas/atualizar", function (req, res) {
   let id = req.body.id;
   let titulo = req.body.titulo;
