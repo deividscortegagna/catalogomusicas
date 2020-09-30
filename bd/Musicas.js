@@ -14,6 +14,12 @@ const Musicas = conexao.define("musicas", {
   ano: Sequelize.INTEGER,
 });
 
+Genero.hasMany(Musicas, {
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
+});
+Musicas.belongsTo(Genero);
+
 Artistas.hasMany(Musicas, {
   onDelete: "RESTRICT",
   onUpdate: "CASCADE",
@@ -21,17 +27,12 @@ Artistas.hasMany(Musicas, {
 
 Musicas.belongsTo(Artistas);
 
-Genero.hasMany(Musicas, {
-  onDelete: "RESTRICT",
-  onUpdate: "CASCADE",
-});
-Musicas.belongsTo(Genero);
-
 Usuarios.hasMany(Musicas, {
   onDelete: "RESTRICT",
   onUpdate: "CASCADE",
 });
 Musicas.belongsTo(Usuarios);
+
 
 Musicas.sync({ force: false });
 

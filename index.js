@@ -54,6 +54,13 @@ app.post("/generos/atualizar", function (req, res) {
     }
   );
 });
+
+app.get("/generos/excluir/:id", function (req, res) {
+  let id = req.params.id;
+  Genero.destroy({ where: { id: id } }).then(function () {
+    res.redirect("/generos");
+  });
+});
 // -------------------------------------------------------Artistas-----------------------
 app.get("/artistas", function (req, res) {
   //findAll: retorna todos os registros do banco de dados
@@ -90,7 +97,12 @@ app.post("/artistas/atualizar", function (req, res) {
   );
 });
 
-
+app.get("/artistas/excluir/:id", function (req, res) {
+  let id = req.params.id;
+  Artistas.destroy({ where: { id: id } }).then(function () {
+    res.redirect("/artistas");
+  });
+});
 
 app.get("/musicas/novo/:mensagem?", async function (req, res) {
   try {
@@ -124,6 +136,17 @@ app.post("/musicas/salvar", function (req, res) {
     console.log(error);
   }
   
+});
+
+app.post("/musicas/atualizar", function (req, res) {
+  let id = req.body.id;
+  let titulo = req.body.titulo;
+  let ano = req.body.ano;
+  Musicas.update({ titulo: titulo, ano: ano }, { where: { id: id } }).then(
+    function () {
+      res.redirect("/musicas");
+    }
+  );
 });
 
 app.get("/musicas/excluir/:id", function (req, res) {

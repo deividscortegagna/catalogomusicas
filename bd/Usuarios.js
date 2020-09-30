@@ -19,3 +19,4 @@ const Usuarios = conexao.define("usuarios", {
 Usuarios.sync({ force: false });
 
 module.exports = Usuarios;
+
