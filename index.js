@@ -104,65 +104,6 @@ app.get("/artistas/excluir/:id", function (req, res) {
   });
 });
 
-app.get("/musicas/novo/:mensagem?", async function (req, res) {
-  try {
-    const artistas = await Artistas.findAll({ order: ["nome"] });
-    const generos = await Genero.findAll({ order: ["descricao"] });
-
-    res.render("musicas/novo", { mensagem: "", artistas, generos });
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-app.post("/musicas/salvar", function (req, res) {
-  try {
-    let nome = req.body.nome;
-    let titulo = req.body.titulo;
-    let ano = req.body.ano;
-    let artista = req.body.artista;
-    let genero = req.body.genero;
-    let usuario = req.session.usuario.id;
-
-    Musicas.create({
-      nome,
-      titulo,
-      ano,
-      artistaId: artista,
-      generoId: genero,
-      usuarioId: usuario
-    }).then(res.redirect("/musicas/lista/incluido"));
-  } catch (error) {
-    console.log(error);
-  }
-  
-});
-
-app.get("/musicas/editar/:id", function (req, res) {
-  let id = req.params.id;
-  Musicas.findByPk(id).then(function (musicas) {
-    res.render("musicas/editar", { musicas: musicas });
-  });
-});
-
-app.post("/musicas/atualizar", function (req, res) {
-  let id = req.body.id;
-  let titulo = req.body.titulo;
-  let ano = req.body.ano;
-  Musicas.update({ titulo: titulo, ano: ano }, { where: { id: id } }).then(
-    function () {
-      res.redirect("/musicas/lista");
-    }
-  );
-});
-
-app.get("/musicas/excluir/:id", function (req, res) {
-  let id = req.params.id;
-  Musicas.destroy({ where: { id: id } }).then(function () {
-    res.redirect("/musicas/lista");
-  });
-});
-
 app.listen(port, () => {
   console.log(`O servidor está rodando http://localhost:${port}`);
 });

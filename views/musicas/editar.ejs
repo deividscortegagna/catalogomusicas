@@ -24,7 +24,7 @@
                 type="text"
                 name="titulo"
                 id="titulo"
-                value="<%=musicas.titulo%>"
+                value="<%=musica.titulo%>"
                 placeholder="Informe o Título da Musica."
                 class="form-control"
                 required
@@ -36,7 +36,7 @@
                 type="number"
                 name="ano"
                 id="ano"
-                value="<%=musicas.ano%>"
+                value="<%=musica.ano%>"
                 placeholder="Informe o Ano de Lançamento."
                 class="form-control"
                 required
@@ -47,8 +47,7 @@
               <select id="artista" name="artista" class="form-control" required>
                 <!-- Montando o select das categorias usando o forEach -->
                 <option value=""></option>
-                <% artistas.forEach(function(artista){ if(artista.id ==
-                musicas.artistaId) %>
+                <% artistas.forEach(function(artista){ if(artista.id == musica.artistaId) { %>
                 <option value="<%=artista.id%>" selected>
                   <%=artista.nome%>
                 </option>
@@ -61,8 +60,7 @@
               <label for="genero" class="style__label">Genero</label>
               <select id="genero" name="genero" class="form-control" required>
                 <option value=""></option>
-                <% generos.forEach(function(genero){ if(genero.id ==
-                musicas.generoId) %>
+                <% generos.forEach(function(genero){ if(genero.id == musica.generoId) { %>
                 <option value="<%=genero.id%>" selected>
                   <%=genero.descricao%>
                 </option>
@@ -71,18 +69,18 @@
                 <%}%> <%})%>
               </select>
             </div>
-            <input type="hidden" name="id" value="<%=musicas.id%>" />
+            <input type="hidden" name="id" value="<%=musica.id%>" />
             <input class="btn btn-success" type="submit" value="Salvar" />
             <a href="/musicas/lista" class="btn btn-outline-success"
-              >Lista Musicas</a
+              >Listar Músicas</a
             >
           </form>
+          <% if(mensagem){ %>
+          <div class="alert alert-danger mt-4">
+            <strong>Alerta! </strong> <%= mensagem %>
+          </div>
+          <% } %>
         </div>
-        <% if(mensagem){ %>
-        <div class="alert alert-info">
-          <strong>Novo Registro!</strong> <%= mensagem %>
-        </div>
-        <% } %>
       </div>
     </div>
     <script

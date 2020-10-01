@@ -18,7 +18,7 @@
       <%- include ('../partials/navbar');%>
       <h3 class="title__h3">Músicas Cadastradas</h3>
       <br />
-      <a href="/musicas/novo" class="btn btn-success">Nova Musica</a
+      <a href="/musicas/novo" class="btn btn-success">Nova Música</a
       ><br /><br />
       <table class="table table-striped table__style">
         <thead>
@@ -41,7 +41,7 @@
             <td><%=musica.genero.descricao %></td>
             <td>
               <a
-                href="/musicas/editar/<%=musicas.id%>"
+                href="/musicas/editar/<%=musica.id%>"
                 class="fas fa-edit"
                 style="color: #28a745"
                 ata-toggle="tooltip"
@@ -64,7 +64,7 @@
 
       <% if(mensagem){ %>
       <div class="alert alert-info">
-        <strong>Novo Registro!</strong> <%= mensagem %>
+        <strong>Aviso!</strong> <%= mensagem %>
       </div>
       <% } %>
     </div>

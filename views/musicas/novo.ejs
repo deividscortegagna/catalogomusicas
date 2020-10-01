@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Catalago de Musicas</title>
+    <title>Catálogo de Músicas</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/global.css" />
@@ -14,23 +14,23 @@
       <br />
       <div class="card">
         <div class="card-body card__body__style">
-          <h3 class="card-title title__h3">Cadastro de Musicas</h3>
+          <h3 class="card-title title__h3">Edição de Músicas</h3>
           <form action="/musicas/salvar" method="POST">
             <div class="form-group">
               <label for="descricao" class="style__label"
-                >Título da Musica</label
+                >Título da Música</label
               >
               <input
                 type="text"
                 name="titulo"
                 id="titulo"
-                placeholder="Informe o Título da Musica."
+                placeholder="Informe o Título da Música."
                 class="form-control"
                 required
               />
             </div>
             <div class="form-group">
-              <label for="ano" class="style__label">Ano Lançamento</label>
+              <label for="ano" class="style__label">Ano de Lançamento</label>
               <input
                 type="number"
                 name="ano"
@@ -41,7 +41,7 @@
               />
             </div>
             <div class="form-group">
-              <label for="artista" class="style__label">Artistas</label>
+              <label for="artista" class="style__label">Artista</label>
               <select id="artista" name="artista" class="form-control" required>
                 <!-- Montando o select das categorias usando o forEach -->
                 <option value=""></option>
@@ -51,7 +51,7 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="genero" class="style__label">Genero</label>
+              <label for="genero" class="style__label">Gênero</label>
               <select id="genero" name="genero" class="form-control" required>
                 <option value=""> </option>
                 <% generos.forEach(function(genero){ %>
@@ -61,14 +61,21 @@
             </div>
 
             <input class="btn btn-success" type="submit" value="Salvar" />
-            <a href="/musicas/lista" class="btn btn-outline-success">Lista Musicas</a>
+            <a href="/musicas/lista" class="btn btn-outline-success">Listar Músicas</a>
           </form>
+
+          <% if(mensagem){ %>
+          <div class="alert alert-info mt-4">
+            <strong>Novo Registro!</strong> <%= mensagem %>
+          </div>
+          <% } %>
+          <% if(erro){ %>
+            <div class="alert alert-danger mt-4">
+              <strong>Alerta!</strong> <%= erro %>
+            </div>
+          <% } %>
+          
         </div>
-        <% if(mensagem){ %>
-        <div class="alert alert-info">
-          <strong>Novo Registro!</strong> <%= mensagem %>
-        </div>
-        <% } %>
       </div>
     </div>
     <script
