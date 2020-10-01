@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const conexao = new Sequelize("catalogomusicasbd", "postgres", "ti@123", {
+const conexao = new Sequelize("catalogomusicasbd", "postgres", "postgres", {
   host: "localhost",
   dialect: "postgres",
   timezone: "-03:00",
