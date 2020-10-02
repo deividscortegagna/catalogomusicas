@@ -22,16 +22,18 @@ conexao.authenticate();
 
 // ---------- Gêneros ----------
 
-app.get("/generos", function (req, res) {
-  //findAll: retorna todos os registros do banco de dados
+app.get("/generos/:mensagem?", function (req, res) {    
+  let erro = req.params.mensagem === "erro" ? "Não foi possível excluir o gênero." : null
+
   Genero.findAll({ order: ["id"] }).then(function (genero) {
-    res.render("generos/generos", { genero: genero });
+    res.render("generos/generos", { genero: genero, erro });
   });
 });
 
 app.get("/generos/novo", function (req, res) {
   res.render("generos/novo", { mensagem: "" });
 });
+
 app.post("/generos/salvar", function (req, res) {
   let descricao = req.body.descricao;
   Genero.create({ descricao: descricao }).then(
@@ -39,12 +41,14 @@ app.post("/generos/salvar", function (req, res) {
     res.render("generos/novo", { mensagem: "Genero Incluido" })
   );
 });
+
 app.get("/generos/editar/:id", function (req, res) {
   let id = req.params.id;
   Genero.findByPk(id).then(function (gen) {
     res.render("generos/editar", { gen: gen });
   });
 });
+
 app.post("/generos/atualizar", function (req, res) {
   let id = req.body.id;
   let descricao = req.body.descricao;
@@ -55,12 +59,7 @@ app.post("/generos/atualizar", function (req, res) {
   );
 });
 
-app.get("/generos/excluir/:id", function (req, res) {
-  let id = req.params.id;
-  Genero.destroy({ where: { id: id } }).then(function () {
-    res.redirect("/generos");
-  });
-});
+
 // -------------------------------------------------------Artistas-----------------------
 app.get("/artistas", function (req, res) {
   //findAll: retorna todos os registros do banco de dados
@@ -72,6 +71,7 @@ app.get("/artistas", function (req, res) {
 app.get("/artistas/novo", function (req, res) {
   res.render("artistas/novo", { mensagem: "" });
 });
+
 app.post("/artistas/salvar", function (req, res) {
   let nome = req.body.nome;
   let site = req.body.site;
@@ -80,12 +80,14 @@ app.post("/artistas/salvar", function (req, res) {
     res.render("artistas/novo", { mensagem: "Artista  Incluido" })
   );
 });
+
 app.get("/artistas/editar/:id", function (req, res) {
   let id = req.params.id;
   Artistas.findByPk(id).then(function (artista) {
     res.render("artistas/editar", { artista: artista });
   });
 });
+
 app.post("/artistas/atualizar", function (req, res) {
   let id = req.body.id;
   let nome = req.body.nome;

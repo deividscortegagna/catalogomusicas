@@ -4,6 +4,7 @@ const autorizacao = require("./autorizacao/autorizacao");
 const LoginControlador = require('./controladores/LoginControlador');
 const UsuariosControlador = require('./controladores/UsuariosControlador');
 const MusicasControlador = require('./controladores/MusicasControlador');
+const GenerosControlador = require('./controladores/GenerosControlador');
 
 const rotas = express.Router();
 
@@ -26,5 +27,7 @@ rotas.get("/musicas/excluir/:id", autorizacao, MusicasControlador.excluir);
 rotas.get("/musicas/editar/:id/:erro?", autorizacao, MusicasControlador.editar);
 rotas.post("/musicas/atualizar", MusicasControlador.atualizar);
 
+// ---------- Gêneros ----------
+rotas.get("/generos/excluir/:id", autorizacao, GenerosControlador.excluir);
 
 module.exports = rotas;
