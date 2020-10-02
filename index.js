@@ -22,14 +22,6 @@ conexao.authenticate();
 
 // ---------- Gêneros ----------
 
-app.get("/generos/:mensagem?", function (req, res) {    
-  let erro = req.params.mensagem === "erro" ? "Não foi possível excluir o gênero." : null
-
-  Genero.findAll({ order: ["id"] }).then(function (genero) {
-    res.render("generos/generos", { genero: genero, erro });
-  });
-});
-
 app.get("/generos/novo", function (req, res) {
   res.render("generos/novo", { mensagem: "" });
 });
@@ -40,6 +32,14 @@ app.post("/generos/salvar", function (req, res) {
     //create: permite salvar algo no banco de dados
     res.render("generos/novo", { mensagem: "Genero Incluido" })
   );
+});
+
+app.get("/generos/:mensagem?", function (req, res) {    
+  let erro = req.params.mensagem === "erro" ? "Não foi possível excluir o gênero." : null
+
+  Genero.findAll({ order: ["id"] }).then(function (genero) {
+    res.render("generos/generos", { genero: genero, erro });
+  });
 });
 
 app.get("/generos/editar/:id", function (req, res) {
@@ -61,6 +61,14 @@ app.post("/generos/atualizar", function (req, res) {
 
 
 // -------------------------------------------------------Artistas-----------------------
+app.get("/artistas/:mensagem?", function (req, res) {
+  let erro = req.params.mensagem === "erro" ? "Não foi possível excluir o Artista." : null
+
+  Artistas.findAll({ order: ["id"] }).then(function (artistas) {
+    res.render("artistas/artistas", { artistas: artistas, erro });
+  });
+});
+
 app.get("/artistas", function (req, res) {
   //findAll: retorna todos os registros do banco de dados
   Artistas.findAll({ order: ["id"] }).then(function (artistas) {
