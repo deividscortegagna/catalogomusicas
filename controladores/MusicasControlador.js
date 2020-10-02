@@ -44,7 +44,7 @@ module.exports = {
       const { nome, titulo, ano, artista, genero } = req.body;
       const usuario = req.session.usuario.id;
   
-      const musica = Musicas.create({
+      const musica = await Musicas.create({
         nome,
         titulo,
         ano,
