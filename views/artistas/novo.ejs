@@ -31,10 +31,15 @@
           <a href="/artistas/listar" class="btn btn-outline-success">Listar Artistas</a>
         </form>
         <% if(mensagem){ %>
-        <div class="alert alert-info mt-4">
-          <strong>Novo Registro!</strong> <%= mensagem %>
-        </div>
-        <% } %>
+          <div class="alert alert-info mt-4">
+            <strong>Novo Registro!</strong> <%= mensagem %>
+          </div>
+          <% } %>
+          <% if(erro){ %>
+            <div class="alert alert-danger mt-4">
+              <strong>Alerta!</strong> <%= erro %>
+            </div>
+          <% } %>
       </div>
 
     </div>

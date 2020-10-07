@@ -20,37 +20,6 @@ app.use(rotas);
 
 conexao.authenticate();
 
-// ---------- Gêneros ----------
-
-app.get("/generos/novo", function (req, res) {
-  res.render("generos/novo", { mensagem: "" });
-});
-
-app.post("/generos/salvar", function (req, res) {
-  let descricao = req.body.descricao;
-  Genero.create({ descricao: descricao }).then(
-    //create: permite salvar algo no banco de dados
-    res.render("generos/novo", { mensagem: "Genero Incluido" })
-  );
-});
-
-app.get("/generos/editar/:id", function (req, res) {
-  let id = req.params.id;
-  Genero.findByPk(id).then(function (gen) {
-    res.render("generos/editar", { gen: gen });
-  });
-});
-
-app.post("/generos/atualizar", function (req, res) {
-  let id = req.body.id;
-  let descricao = req.body.descricao;
-  Genero.update({ descricao: descricao }, { where: { id: id } }).then(
-    function () {
-      res.redirect("/generos");
-    }
-  );
-});
-
 app.listen(port, () => {
   console.log(`O servidor está rodando http://localhost:${port}`);
 });

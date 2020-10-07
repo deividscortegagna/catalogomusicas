@@ -16,11 +16,14 @@
   <body>
     <div class="container">
       <%- include ('../partials/navbar');%>
-      <h3 class="title__h3">Gêneros Cadastrados</h3>
+      <br>
+      <div class="card">
+        <div class="card-body card__body__style">
+      <h3 class="title__h3">Gêneros Musicais Cadastrados</h3>
       <br />
-      <a href="/generos/novo" class="btn btn-success">Novo Gênero</a
+      <a href="/generos/novo" class="btn btn-success">Novo Gênero Musical</a
       ><br /><br />
-      <table class="table table-striped table__style">
+      <table class="table table-striped table-bordered table__style">
         <thead>
           <tr>
             <th>ID</th>
@@ -29,7 +32,7 @@
           </tr>
         </thead>
         <tbody>
-          <% genero.forEach(function(gen){ %>
+          <% generos.forEach(function(gen){ %>
           <tr>
             <td><%=gen.id %></td>
             <td><%=gen.descricao %></td>
@@ -61,6 +64,9 @@
           <strong>Aviso!</strong> <%= erro %>
         </div>
         <% } %>
+
+        </div>
+      </div>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

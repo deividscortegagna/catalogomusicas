@@ -3,7 +3,7 @@ const Artistas = require("../bd/Artistas");
 module.exports = {
     async listar(req, res) {
         try {
-            let erro = req.params.mensagem === "erro" ? "Não foi possível excluir o Artista." : null
+            let erro = req.params.mensagem === "erro" ? "Não foi possível excluir o Artista. Verifique se o Artista não está associado a alguma música." : null
 
             const artistas = await Artistas.findAll({ order: ["id"] });
 
@@ -60,14 +60,9 @@ module.exports = {
         res.render("artistas/editar", { artista, mensagem: erro ? 'Não foi possível atualizar o artista.' : null });
     },
     async atualizar(req, res) {
-        let id = req.body.id;
-        let nome = req.body.nome;
-        let site = req.body.site;
-        Artistas.update({ nome: nome, site: site }, { where: { id: id } }).then(
-            function () {
-                res.redirect("/artistas/listar");
-            }
-        );
+        const { id, nome, site } = req.body;
+        await Artistas.update({ nome, site }, { where: { id } });
+        res.redirect("/artistas/listar");
     },
     async excluir(req, res) {
         try {
