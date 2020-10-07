@@ -16,7 +16,10 @@ class Artistas extends Model {
     }
 
     static associate(models) {
-        this.hasMany(models.Musicas)
+        this.hasMany(models.Musicas,{
+            onDelete: "RESTRICT",
+            onUpdate: "CASCADE",
+          })
     }
 }
 
