@@ -1,4 +1,4 @@
-const Generos = require("../bd/Generos");
+const Generos = require("../modelos/Generos");
 
 module.exports = {
   async listar(req, res) {
@@ -59,8 +59,13 @@ module.exports = {
   },
   async atualizar(req, res) {
     const { id, descricao } = req.body;
-    await Generos.update({ descricao }, { where: { id } });
-    res.redirect("/artistas/listar");
+
+    try {
+      await Generos.update({ descricao }, { where: { id } });
+      res.redirect("/generos/listar");
+    } catch {
+      res.redirect("/generos/editar/" + id + "/erro");
+    }
   },
   async excluir(req, res) {
     try {

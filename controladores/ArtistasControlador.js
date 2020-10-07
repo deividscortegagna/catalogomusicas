@@ -1,4 +1,4 @@
-const Artistas = require("../bd/Artistas");
+const Artistas = require("../modelos/Artistas");
 
 module.exports = {
     async listar(req, res) {

@@ -1,4 +1,4 @@
-const Usuarios = require("./../bd/Usuarios");
+const Usuarios = require("./../modelos/Usuarios");
 const bcrypt = require("bcryptjs");
 
 module.exports = {

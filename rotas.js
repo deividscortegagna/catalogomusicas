@@ -6,7 +6,6 @@ const UsuariosControlador = require('./controladores/UsuariosControlador');
 const MusicasControlador = require('./controladores/MusicasControlador');
 const GenerosControlador = require('./controladores/GenerosControlador');
 const ArtistasControlador = require('./controladores/ArtistasControlador');
-const Generos = require('./bd/Generos');
 
 const rotas = express.Router();
 
@@ -21,7 +20,6 @@ rotas.get("/usuarios/novo", UsuariosControlador.novo);
 rotas.post("/usuarios/salvar", UsuariosControlador.salvar);
 
 // ---------- Músicas ----------
-
 rotas.get("/musicas/listar/:mensagem?", autorizacao, MusicasControlador.listar);
 rotas.get("/musicas/novo/:mensagem?", autorizacao, MusicasControlador.novo);
 rotas.post("/musicas/salvar", MusicasControlador.salvar);
@@ -44,6 +42,5 @@ rotas.post("/artistas/salvar", ArtistasControlador.salvar);
 rotas.get("/artistas/editar/:id/:erro?", autorizacao, ArtistasControlador.editar);
 rotas.post("/artistas/atualizar", ArtistasControlador.atualizar);
 rotas.get("/artistas/excluir/:id", autorizacao, ArtistasControlador.excluir);
-
 
 module.exports = rotas;
