@@ -1,70 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Catalago de Musicas</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/global.css" />
-  </head>
 
-  <body>
-    <div class="container">
-      <%- include ('../partials/navbar');%>
+<head>
+  <title>Catalago de Musicas</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/global.css" />
+</head>
 
-      <br />
-      <div class="card">
-        <div class="card-body card__body__style">
-          <h3 class="card-title title__h3">Cadastro de Artistas</h3>
-          <form action="/artistas/salvar" method="POST">
-            <div class="form-group">
-              <label for="descricao" class="style__label"
-                >Nome do Artista</label
-              >
-              <input
-                type="text"
-                name="nome"
-                id="nome"
-                placeholder="Informe o Nome do Artista."
-                class="form-control"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="descricao" class="style__label"
-                >Site do Artista</label
-              >
-              <input
-                type="text"
-                name="site"
-                id="site"
-                placeholder="Informe o Site do Artista."
-                class="form-control"
-                required
-              />
-            </div>
-            <input class="btn btn-success" type="submit" value="Salvar" />
-            <a href="/artistas" class="btn btn-outline-success"
-              >Lista Artistas</a
-            >
-          </form>
-        </div>
+<body>
+  <div class="container">
+    <%- include ('../partials/navbar');%>
+
+    <br />
+    <div class="card">
+      <div class="card-body card__body__style">
+        <h3 class="card-title title__h3">Cadastro de Artistas</h3>
+        <form action="/artistas/salvar" method="POST">
+          <div class="form-group">
+            <label for="descricao" class="style__label">Nome do Artista</label>
+            <input type="text" name="nome" id="nome" placeholder="Informe o Nome do Artista." class="form-control"
+              required />
+          </div>
+          <div class="form-group">
+            <label for="descricao" class="style__label">Site do Artista</label>
+            <input type="text" name="site" id="site" placeholder="Informe o Site do Artista." class="form-control"
+              required />
+          </div>
+          <input class="btn btn-success" type="submit" value="Salvar" />
+          <a href="/artistas/listar" class="btn btn-outline-success">Listar Artistas</a>
+        </form>
         <% if(mensagem){ %>
-        <div class="alert alert-info">
+        <div class="alert alert-info mt-4">
           <strong>Novo Registro!</strong> <%= mensagem %>
         </div>
         <% } %>
       </div>
+
     </div>
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script src="/js/bootstrap.min.js"></script>
-  </body>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</body>
+
 </html>

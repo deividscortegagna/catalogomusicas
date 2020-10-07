@@ -33,7 +33,7 @@ module.exports = {
       let mensagem = req.params.mensagem === "incluido" ? "Música cadastrada com Sucesso." : null
       let erro = req.params.mensagem === "erro" ? "Não foi possível cadastrar a música." : null
   
-      res.render("musicas/novo", { mensagem: "", artistas, generos, mensagem, erro });
+      res.render("musicas/novo", { artistas, generos, mensagem, erro });
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +65,7 @@ module.exports = {
   async excluir (req, res) {
     const { id } = req.params;
     Musicas.destroy({ where: { id } }).then(function () {
-      res.redirect("/musicas/lista");
+      res.redirect("/musicas/listar");
     });
   },
 
@@ -93,9 +93,9 @@ module.exports = {
   
       console.log("Retorno: ", retorno )
       
-      res.redirect("/musicas/lista");
+      res.redirect("/musicas/listar");
     } catch (error) {
-      res.redirect("/musicas/editar/1/erro");
+      res.redirect("/musicas/editar/erro");
     }
   }
 }
