@@ -14,7 +14,7 @@
       <br />
       <div class="card">
         <div class="card-body card__body__style">
-          <h3 class="card-title title__h3">Cadastro de Gêneros</h3>
+          <h3 class="card-title title__h3">Cadastro de Gêneros Musicais</h3>
           <form action="/generos/salvar" method="POST">
             <div class="form-group">
               <label for="descricao" class="style__label">Descrição</label>
@@ -22,22 +22,28 @@
                 type="text"
                 name="descricao"
                 id="descricao"
-                placeholder="Informe o Gênero."
+                placeholder="Informe o nome do Gênero Musical."
                 class="form-control"
                 required
               />
             </div>
             <input class="btn btn-success" type="submit" value="Salvar" />
-            <a href="/generos" class="btn btn-outline-success"
-              >Listar Gêneros</a
+            <a href="/generos/listar" class="btn btn-outline-success"
+              >Listar Gêneros Musicais</a
             >
           </form>
+          <% if(mensagem){ %>
+          <div class="alert alert-info mt-4">
+            <strong>Novo Registro!</strong> <%= mensagem %>
+          </div>
+          <% } %>
+          <% if(erro){ %>
+            <div class="alert alert-danger mt-4">
+              <strong>Alerta!</strong> <%= erro %>
+            </div>
+          <% } %>
         </div>
-        <% if(mensagem){ %>
-        <div class="alert alert-info">
-          <strong>Novo Registro!</strong> <%= mensagem %>
-        </div>
-        <% } %>
+
       </div>
     </div>
     <script

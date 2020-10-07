@@ -44,10 +44,15 @@
             </div>
             <input type="hidden" name="id" value="<%=artista.id%>" />
             <input class="btn btn-success" type="submit" value="Atualizar" />
-            <a href="/artistas" class="btn btn-outline-success"
-              >Lista Artistas</a
+            <a href="/artistas/listar" class="btn btn-outline-success"
+              >Listar Artistas</a
             >
           </form>
+          <% if(mensagem){ %>
+            <div class="alert alert-danger mt-4">
+              <strong>Alerta! </strong> <%= mensagem %>
+            </div>
+          <% } %>
         </div>
       </div>
     </div>
