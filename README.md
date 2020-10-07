@@ -15,6 +15,16 @@ npm install
 npm run serve
 ```
 
+### Rodar Aplicação em Modo Dev.
+```
+npm run dev
+```
+
+### Criação do Banco de dados
+```
+npx sequelize-cli db:create
+```
+
 # Autores
 [Deivid Scortegagna](https://github.com/evilpsy)
 

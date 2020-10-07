@@ -1,12 +1,12 @@
-const Artistas = require("./../bd/Artistas");
-const Generos = require("./../bd/Generos");
-const Musicas = require("./../bd/Musicas");
+const Artistas = require("./../modelos/Artistas");
+const Generos = require("./../modelos/Generos");
+const Musicas = require("./../modelos/Musicas");
 
 module.exports = {
   async listar (req, res) {
     try {
       const musicas = await Musicas.findAll({
-        where: { usuarioId: req.session.usuario.id },
+        where: { UsuarioId: req.session.usuario.id },
         order: ["titulo"],
         include: [{ model: Artistas }, { model: Generos }],
       });
@@ -48,9 +48,9 @@ module.exports = {
         nome,
         titulo,
         ano,
-        artistaId: artista,
-        generoId: genero,
-        usuarioId: usuario
+        ArtistaId: artista,
+        GeneroId: genero,
+        UsuarioId: usuario
       });
 
       if (musica)
@@ -86,9 +86,9 @@ module.exports = {
       const retorno = await Musicas.update({
         titulo,
         ano,
-        artistaId: artista,
-        generoId: genero,
-        usuarioId: usuario
+        ArtistaId: artista,
+        GeneroId: genero,
+        UsuarioId: usuario
       }, { where: { id } })
   
       console.log("Retorno: ", retorno )

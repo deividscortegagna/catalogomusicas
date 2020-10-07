@@ -2,10 +2,6 @@ const express = require("express");
 const session = require('express-session')
 const bodyParser = require("body-parser");
 const conexao = require("./bd/conexao");
-const Genero = require("./bd/Generos");
-const Artistas = require("./bd/Artistas");
-const Musicas = require("./bd/Musicas");
-const autorizacao = require("./autorizacao/autorizacao");
 const rotas = require('./rotas');
 
 const app = express();
